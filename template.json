@@ -77,7 +77,7 @@
     "DBInstanceClass" : {
       "Type": "String",
       "Description": "Database instance type",
-      "Default": "db.t2.micro"
+      "Default": "db.r3.large"
     }
   },
 
@@ -133,8 +133,8 @@
           "FromPort" : 3306,
           "IpProtocol" : "TCP",
           "ToPort" : 3306
-          }],
-         "VpcId" : { "Ref" : "VPC" }
+        }],
+        "VpcId" : { "Ref" : "VPC" }
       }
     },
 
@@ -153,7 +153,32 @@
         "DatabaseName" : { "Ref" : "DatabaseName" },
         "Engine" : "aurora",
         "MasterUsername" : { "Ref" : "DBMasterUsername" },
-        "MasterUserPassword" : { "Ref" : "DBMasterUserPassword" }
+        "MasterUserPassword" : { "Ref" : "DBMasterUserPassword" },
+        "VpcSecurityGroupIds" : [ { "Ref" : "VPCSecurityGroup" } ]
+      }
+    },
+
+    "AuroraNode1": {
+      "Type" : "AWS::RDS::DBInstance",
+      "Properties" : {
+        "DBClusterIdentifier" : { "Ref": "AuroraCluster" },
+        "DBSubnetGroupName" : { "Ref" : "DBSubnetGroup" },
+        "Engine" : "aurora",
+        "DBInstanceClass" : { "Ref" : "DBInstanceClass" },
+        "AvailabilityZone" : { "Fn::GetAtt" : [ "PrivateSubnetA", "AvailabilityZone" ] },
+        "PubliclyAccessible" : false
+      }
+    },
+
+    "AuroraNode2": {
+      "Type" : "AWS::RDS::DBInstance",
+      "Properties" : {
+        "DBClusterIdentifier" : { "Ref": "AuroraCluster" },
+        "DBSubnetGroupName" : { "Ref" : "DBSubnetGroup" },
+        "Engine" : "aurora",
+        "DBInstanceClass" : { "Ref" : "DBInstanceClass" },
+        "AvailabilityZone" : { "Fn::GetAtt" : [ "PrivateSubnetB", "AvailabilityZone" ] },
+        "PubliclyAccessible" : false
       }
     },
 
@@ -235,6 +260,14 @@
     "AuroraPort" : {
       "Description" : "The connection port for the DB cluster",
       "Value" :  { "Fn::GetAtt" : [ "AuroraCluster", "Endpoint.Port" ] }
+    },
+    "AuroraNode1" : {
+      "Description" : "AuroraNode1",
+      "Value" :  { "Ref" : "AuroraNode1" }
+    },
+    "AuroraNode2" : {
+      "Description" : "AuroraNode2",
+      "Value" :  { "Ref" : "AuroraNode2" }
     }
   }
 }
