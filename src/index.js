@@ -3,11 +3,11 @@ import config from './configuration';
 
 const logger = loggerConstructor();
 
-const main = () => {
-  logger.debug('BEGINNING Lambda function');
+const handler = () => {
+  logger.info('BEGINNING Lambda function');
   logger.debug('ENDING Lambda function');
 };
 
-export default main;
-
-main();
+export default {
+  handler: handler
+};
