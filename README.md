@@ -110,4 +110,15 @@ This new VPC configuration option for lambda functions is not yet exposed via Cl
 $ aws lambda update-function-configuration --function-name <function_name> --vpc-config SubnetIds=string,string,SecurityGroupIds=string,string
 
 ```
-aws lambda update-function-configuration --function-name TestAurora-LambdaFunction-SKYSWW6KRRI2 --vpc-config SubnetIds=subnet-96227de1,subnet-6503743c,SecurityGroupIds=sg-db679bbf
+
+#### Associate the CloudWatch event rule as a source event for our lambda function
+
+In our CloudFormation template, we create a CloudWatch event rule to periodically create an event.  Because there is no support for these event sources anywhere other than in the AWS console, this is one manual step we must make via the console.
+
+![lambda config](https://s3-ap-southeast-2.amazonaws.com/gorillastack-random-public/lambda1.png)
+
+1. Under your Lambda function, go to 'Event sources'.
+1. Click 'Add event source'
+1. Select your event from those listed
+
+![lambda event source config](https://s3-ap-southeast-2.amazonaws.com/gorillastack-random-public/lambda2.png)
