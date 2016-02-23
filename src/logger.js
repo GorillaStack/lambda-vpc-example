@@ -1,6 +1,6 @@
 import config from './configuration';
 
-export default function(base) {
+export default function() {
   const winston = require('winston');
 
   const logger = new (winston.Logger)({
