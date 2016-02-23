@@ -1,14 +1,15 @@
-# lambda-vpn-cloudformation
+# lambda-vpc-example
 
 ## Overview
 
 This repository is contains the CloudFormation template to create:
 
 1. a VPC
-1. a single private subnet
-1. an RDS instance running Aurora within the private subnet
+1. two private subnets
+1. a HA RDS cluster running Aurora within the private subnets
 1. a role for a lambda function
 1. a lambda function that can connect to the Aurora DB
+1. a periodic CloudWatch event rule
 
 The purpose of this is to illustrate how complex batch jobs with access to dark corners of your team's networking can be replaced by lambda functions for the purposes for cost savings.
 
@@ -106,4 +107,7 @@ Most important one to substitute is the RuleArn from the step above.
 This new VPC configuration option for lambda functions is not yet exposed via CloudFormation.  Real pain!  While we wait for its implementation in CloudFormation, add this configuration via the AWS CLI as follows:
 
 ```
+$ aws lambda update-function-configuration --function-name <function_name> --vpc-config SubnetIds=string,string,SecurityGroupIds=string,string
+
 ```
+aws lambda update-function-configuration --function-name TestAurora-LambdaFunction-SKYSWW6KRRI2 --vpc-config SubnetIds=subnet-96227de1,subnet-6503743c,SecurityGroupIds=sg-db679bbf

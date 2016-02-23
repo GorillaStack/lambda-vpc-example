@@ -1,10 +1,13 @@
 {
-  "name": "lambda-vpn-cloudformation",
+  "name": "lambda-vpc-example",
   "version": "1.0.0",
   "description": "example of lambda function that can connect to resources in private subnets of non default vpc",
   "main": "lib/index.js",
   "private": "true",
   "dependencies": {
+    "babel-polyfill": "^6.5.0",
+    "co": "^4.6.0",
+    "mysql": "^2.10.2",
     "winston": "^2.1.1"
   },
   "devDependencies": {
