@@ -9,9 +9,10 @@ This repository is contains the CloudFormation template to create:
 1. a HA RDS cluster running Aurora within the private subnets
 1. a role for a lambda function
 1. a lambda function that can connect to the Aurora DB
-1. a periodic CloudWatch event rule
 
 The purpose of this is to illustrate how complex batch jobs with access to dark corners of your team's networking can be replaced by lambda functions for the purposes for cost savings.
+
+Read more about this in [our blog post](http://blog.gorillastack.com/open-source-aws-lambda/).
 
 ## Using this code
 
