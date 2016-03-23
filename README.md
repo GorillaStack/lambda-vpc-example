@@ -2,7 +2,7 @@
 
 ## Overview
 
-This repository is contains the CloudFormation template to create:
+This repository contains the CloudFormation template to create:
 
 1. a VPC
 1. two private subnets
